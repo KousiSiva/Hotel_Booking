@@ -1,0 +1,53 @@
+.book-now-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 40px;
+  background: #fff;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-now-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.book-now-container h2 {
+  color: #f79d00;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.booking-details h3 {
+  color: #333;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.booking-details p {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.confirm-btn {
+  margin-top: 25px;
+  background: linear-gradient(45deg, #ffae00, #f79d00);
+  color: white !important;
+  padding: 14px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(247, 157, 0, 0.3);
+  transition: 0.3s;
+  border: none;
+}
+
+.confirm-btn:hover {
+  background: linear-gradient(45deg, #f79d00, #e68a00);
+  box-shadow: 0 6px 15px rgba(247, 157, 0, 0.4);
+  transform: scale(1.05);
+}

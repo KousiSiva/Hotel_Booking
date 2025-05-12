@@ -1,0 +1,80 @@
+
+.available-rooms-page {
+  display: flex;
+}
+
+.available-rooms-container {
+  padding-left: 40px; 
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #f8f8f8;
+  flex: 1;
+  min-height: 100vh;
+}
+
+
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.room-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;
+}
+
+.room-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  text-align: center;
+}
+
+.room-card:hover {
+  transform: scale(1.03);
+}
+
+.room-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.subroom-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-top: 10px;
+}
+
+.subroom-card {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.subroom-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.subroom-info h4 {
+  margin: 10px 0 5px;
+}
+
+.subroom-info p {
+  margin: 0;
+  color: #555;
+  font-weight: 500;
+}

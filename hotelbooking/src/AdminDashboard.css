@@ -1,0 +1,56 @@
+.dashboard-container {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+.dashboard-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./dash.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  z-index: 0;
+}
+
+.dashboard-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: orange;
+  text-align: center;
+}
+
+.home-content {
+  z-index: 2;
+}
+
+.home-content .tagline,
+.home-content h1 {
+  color: orange;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.check-details-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.check-details-button:hover {
+  background-color: darkorange;
+}

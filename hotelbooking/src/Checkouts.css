@@ -1,0 +1,41 @@
+.checkout-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden; 
+  background-color: #fff;
+}
+
+.checkout-content {
+  flex: 1;
+  padding: 32px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.checkout-table .MuiTableHead-root {
+  background-color: #ffe0b2;
+}
+
+.checkout-table .MuiTableCell-head {
+  font-weight: bold;
+  color: #333;
+}
+
+.checkout-table .MuiTableCell-body {
+  font-size: 15px;
+  color: #333;
+}
+
+.MuiCheckbox-root.Mui-checked {
+  color: #ff9800 !important;
+}
+
+.phone-link {
+  color: #2196f3;
+  text-decoration: none;
+}
+
+.phone-link:hover {
+  text-decoration: underline;
+}
