@@ -10,16 +10,31 @@ const ContactPage = () => {
   const [name, setName] = useState("");
   const navigate = useNavigate();
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  const feedback = { name, message, rating };
-  const existingFeedback = JSON.parse(localStorage.getItem("feedbackList")) || [];
-  existingFeedback.push(feedback);
-  localStorage.setItem("feedbackList", JSON.stringify(existingFeedback));
-  alert("Your message has been submitted.");
-  navigate("/");
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    const feedback = { name, message, rating };
+
+    try {
+      const response = await fakeSubmitFeedbackAPI(feedback);
+
+      if (response.success) {
+        alert("Your message has been submitted.");
+        navigate("/");
+      } else {
+        alert("Failed to submit feedback.");
+      }
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
+  const fakeSubmitFeedbackAPI = async (feedback) => {
+    console.log("Submitting feedback to API...", feedback);
+    await new Promise((resolve) => setTimeout(resolve, 500)); 
+    return { success: true };
+  };
 
   return (
     <>
@@ -30,14 +45,14 @@ const handleSubmit = (e) => {
             Feedback
           </Typography>
           <form onSubmit={handleSubmit}>
-           <TextField
-  label="Your Name"
-  variant="outlined"
-  fullWidth
-  value={name}
-  onChange={(e) => setName(e.target.value)}
-  margin="normal"
-/>
+            <TextField
+              label="Your Name"
+              variant="outlined"
+              fullWidth
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              margin="normal"
+            />
 
             <TextField
               label="Your Message"

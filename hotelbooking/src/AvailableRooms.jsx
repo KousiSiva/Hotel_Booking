@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import {
   Dialog,
@@ -21,7 +20,8 @@ import room8 from './room8.png';
 import room9 from './room9.png';
 import room10 from './room10.png';
 
-const roomsData = [
+
+const dummyRoomsData = [
   {
     name: "Junior Suite",
     image: room1,
@@ -78,24 +78,24 @@ const roomsData = [
 ];
 
 const AvailableRooms = () => {
-  const [rooms, setRooms] = useState(() => {
-    const stored = localStorage.getItem("rooms");
-    return stored ? JSON.parse(stored) : roomsData;
-  });
-
+  const [rooms, setRooms] = useState([]);
   const [selectedRoomIndex, setSelectedRoomIndex] = useState(null);
 
-  useEffect(() => {
+  const fetchRooms = async () => {
+    try {
 
-    const updated = localStorage.getItem("rooms");
-    if (updated) setRooms(JSON.parse(updated));
-  }, [selectedRoomIndex]);
+      await new Promise(resolve => setTimeout(resolve, 500));
 
-  useEffect(() => {
-    const stored = localStorage.getItem("rooms");
-    if (!stored) {
-      localStorage.setItem("rooms", JSON.stringify(roomsData));
+      const data = dummyRoomsData; 
+
+      setRooms(data);
+    } catch (error) {
+      console.error("Failed to fetch rooms", error);
     }
+  };
+
+  useEffect(() => {
+    fetchRooms();
   }, []);
 
   const openModal = (index) => setSelectedRoomIndex(index);
@@ -105,7 +105,7 @@ const AvailableRooms = () => {
     <div className="available-rooms-page">
       <Sidebar />
       <div className="available-rooms-container">
-        <h2>Available Room Types</h2>
+        <h2>Available Rooms</h2>
         <div className="room-grid">
           {rooms.map((room, idx) => (
             <div className="room-card" key={idx} onClick={() => openModal(idx)}>

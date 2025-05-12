@@ -15,14 +15,27 @@ const AdminLogin = () => {
     };
   }, []);
 
-  const handleAdminLogin = () => {
-    if (email === "admin@example.com" && password === "admin123") {
-      console.log("Admin logged in");
-      localStorage.setItem("adminLoggedIn", "true"); 
-      navigate("/admin");
-    } else {
-      alert("Invalid admin credentials");
+  const handleAdminLogin = async () => {
+    try {
+    
+      const isValidAdmin = await fakeAdminLoginAPI(email, password);
+
+      if (isValidAdmin) {
+        console.log("Admin logged in");
+
+        navigate("/admin");
+      } else {
+        alert("Invalid admin credentials");
+      }
+    } catch (error) {
+      console.error("Login failed", error);
+      alert("Something went wrong!");
     }
+  };
+
+  const fakeAdminLoginAPI = async (email, password) => {
+    await new Promise((resolve) => setTimeout(resolve, 500)); 
+    return email === "admin@example.com" && password === "admin123";
   };
 
   return (

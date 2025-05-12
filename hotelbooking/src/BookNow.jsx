@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "./BookNow.css";
@@ -34,27 +33,13 @@ const BookNow = () => {
     return days * pricePerNight;
   };
 
-  const handleConfirmBooking = () => {
+  const handleConfirmBooking = async () => {
     const totalPrice = calculatePrice();
     if (!checkIn || !checkOut || !guestName || !guestAge || !phone) {
       alert("Please fill in all required fields.");
       return;
     }
 
-    const storedRooms = JSON.parse(localStorage.getItem("rooms")) || [];
-    const updatedRooms = storedRooms.map((room) => ({
-      ...room,
-      subRooms: room.subRooms.map((sub) => {
-        if (sub.name === roomName && sub.available > 0) {
-          return { ...sub, available: sub.available - 1 };
-        }
-        return sub;
-      }),
-    }));
-    localStorage.setItem("rooms", JSON.stringify(updatedRooms));
-
-
-    const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
     const newBooking = {
       roomName,
       checkIn,
@@ -68,9 +53,27 @@ const BookNow = () => {
       totalPrice,
     };
 
-    localStorage.setItem("bookings", JSON.stringify([...existingBookings, newBooking]));
-    alert(`Booking confirmed for ${roomName}!`);
-    navigate("/");
+    try {
+      // Simulate API call (Replace with real API call later)
+      const response = await fakeBookingAPI(newBooking);
+
+      if (response.success) {
+        alert(`Booking confirmed for ${roomName}!`);
+        navigate("/");
+      } else {
+        alert("Failed to confirm booking.");
+      }
+    } catch (error) {
+      console.error("Booking error:", error);
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
+  // Dummy API simulation (replace with real API call later)
+  const fakeBookingAPI = async (bookingData) => {
+    console.log("Sending booking data to API...", bookingData);
+    await new Promise((resolve) => setTimeout(resolve, 500)); // simulate network delay
+    return { success: true };
   };
 
   return (

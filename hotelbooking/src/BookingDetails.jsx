@@ -17,8 +17,27 @@ const BookingDetails = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("bookings")) || [];
-    setBookings(data);
+    const defaultBookings = [
+      {
+        guestName: "John ",
+        roomName: "Junior Suite",
+        adults: 2,
+        children: 1,
+        phone: "9876543210",
+        checkIn: "2025-05-10",
+        checkOut: "2025-05-14"
+      },
+      {
+        guestName: "Rani",
+        roomName: "Executive Suite",
+        adults: 3,
+        children: 0,
+        phone: "9123456789",
+        checkIn: "2025-05-12",
+        checkOut: "2025-05-16"
+      }
+    ];
+    setBookings(defaultBookings);
   }, []);
 
   return (

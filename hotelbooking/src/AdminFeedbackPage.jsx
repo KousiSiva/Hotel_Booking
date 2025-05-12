@@ -15,11 +15,26 @@ import Sidebar from "./Sidebar";
 import './AdminFeedbackPage.css';
 
 const AdminFeedbackPage = () => {
-  const [feedbackList, setFeedbackList] = useState([]);
+  const [feedbackList, setFeedbackList] = useState([
+    { name: "John", message: "Good", rating: 5 },
+    { name: "Rani", message: "Service Super", rating: 4 }
+  ]);
 
   useEffect(() => {
-    const storedFeedback = JSON.parse(localStorage.getItem("feedbackList")) || [];
-    setFeedbackList(storedFeedback);
+    const fetchFeedbacks = async () => {
+      try {
+        const response = await fetch('/api/admin/feedbacks');
+        if (!response.ok) {
+          throw new Error('Failed to fetch feedbacks');
+        }
+        const data = await response.json();
+        setFeedbackList(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchFeedbacks();
   }, []);
 
   return (

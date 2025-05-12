@@ -15,16 +15,27 @@ import Sidebar from "./Sidebar";
 import "./Checkouts.css";
 
 const Checkouts = () => {
-  const [bookings, setBookings] = useState([]);
-  const [paymentStatus, setPaymentStatus] = useState({});
+  const [bookings, setBookings] = useState([
+    {
+      guestName: "John",
+      roomName: "Executive Suite",
+      checkIn: "2025-05-01",
+      checkOut: "2025-05-05",
+      totalPrice: 20000
+    },
+    {
+      guestName: "Rani",
+      roomName: "Luxury King Room",
+      checkIn: "2025-05-03",
+      checkOut: "2025-05-07",
+      totalPrice: 35000
+    }
+  ]);
 
-  useEffect(() => {
-    const storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    setBookings(storedBookings);
-
-    const storedStatus = JSON.parse(localStorage.getItem("paymentStatus")) || {};
-    setPaymentStatus(storedStatus);
-  }, []);
+  const [paymentStatus, setPaymentStatus] = useState({
+    0: true,
+    1: false
+  });
 
   const handlePaymentChange = (index) => {
     const updatedStatus = {
@@ -32,7 +43,6 @@ const Checkouts = () => {
       [index]: !paymentStatus[index]
     };
     setPaymentStatus(updatedStatus);
-    localStorage.setItem("paymentStatus", JSON.stringify(updatedStatus));
   };
 
   return (
