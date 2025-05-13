@@ -37,12 +37,7 @@ const Header = () => {
     handleMenuClose();
   };
 
-  const handleAdminLogin = () => {
-    setLoggedIn({ user: false, admin: true });
-    navigate("/adminlogin");
-    handleMenuClose();
-  };
-
+  
   const handleLogout = () => {
     setLoggedIn({ user: false, admin: false });
     navigate("/");
@@ -68,8 +63,8 @@ const Header = () => {
 
        
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-          <MenuItem onClick={handleUserLogin}>User Login</MenuItem>
-          <MenuItem onClick={handleAdminLogin}>Admin Login</MenuItem>
+          <MenuItem onClick={handleUserLogin}>Login</MenuItem>
+          
            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           {(loggedIn.user || loggedIn.admin) && <MenuItem onClick={handleLogout}>Logout</MenuItem>}
         </Menu>

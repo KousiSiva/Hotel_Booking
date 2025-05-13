@@ -1,39 +1,37 @@
-
 .available-rooms-page {
   display: flex;
-}
-
-.available-rooms-container {
-  padding-left: 40px; 
-  padding-right: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  background-color: #f8f8f8;
-  flex: 1;
+  background-color: #f5f5f5;
   min-height: 100vh;
 }
 
+.available-rooms-container {
+  flex: 1;
+  padding: 40px;
+}
 
-
-h2 {
-  font-size: 24px;
+.room-title {
+  color: #ff9800;
+  font-size: 28px;
   margin-bottom: 20px;
 }
 
 .room-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  max-height: calc(2 * 250px);
 }
+
 
 .room-card {
   background-color: white;
-  padding: 15px;
   border-radius: 10px;
+  overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
+  padding: 10px;
+  transition: transform 0.2s ease;
 }
 
 .room-card:hover {
@@ -42,39 +40,85 @@ h2 {
 
 .room-card img {
   width: 100%;
-  height: 180px;
+  height: 120px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 6px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 80%;
+  max-width: 800px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ff5722;
 }
 
 .subroom-grid {
+  margin-top: 20px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding-top: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
 }
 
 .subroom-card {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 10px;
+  background: #fdfdfd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 10px;
 }
 
 .subroom-card img {
   width: 100%;
-  height: 140px;
+  height: 100px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .subroom-info h4 {
   margin: 10px 0 5px;
+  font-size: 16px;
+  color: #444;
 }
 
 .subroom-info p {
   margin: 0;
-  color: #555;
-  font-weight: 500;
+  color: #666;
+  font-size: 14px;
 }

@@ -1,15 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper
-} from "@mui/material";
 import Sidebar from "./Sidebar";
 import "./BookingDetails.css";
 
@@ -19,13 +8,13 @@ const BookingDetails = () => {
   useEffect(() => {
     const defaultBookings = [
       {
-        guestName: "John ",
+        guestName: "John",
         roomName: "Junior Suite",
         adults: 2,
         children: 1,
         phone: "9876543210",
         checkIn: "2025-05-10",
-        checkOut: "2025-05-14"
+        checkOut: "2025-05-14",
       },
       {
         guestName: "Rani",
@@ -34,8 +23,8 @@ const BookingDetails = () => {
         children: 0,
         phone: "9123456789",
         checkIn: "2025-05-12",
-        checkOut: "2025-05-16"
-      }
+        checkOut: "2025-05-16",
+      },
     ];
     setBookings(defaultBookings);
   }, []);
@@ -43,49 +32,49 @@ const BookingDetails = () => {
   return (
     <div className="booking-layout">
       <Sidebar />
-      <Box className="booking-content" p={4}>
-        <Typography variant="h4" gutterBottom style={{ color: "#ff9800" }}>
-          Booking Details
-        </Typography>
+      <div className="booking-content">
+        <h2 className="booking-title">BOOKING DETAILS</h2>
 
         {bookings.length === 0 ? (
-          <Typography>No bookings available.</Typography>
+          <p>No bookings available.</p>
         ) : (
-          <TableContainer component={Paper} className="booking-table">
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Booking Date</TableCell>
-                  <TableCell>Customer</TableCell>
-                  <TableCell>Room Type</TableCell>
-                  <TableCell>Persons</TableCell>
-                  <TableCell>Phone</TableCell>
-                  <TableCell>Check-in</TableCell>
-                  <TableCell>Check-out</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+          <div className="booking-table-wrapper">
+            <table className="booking-table">
+              <thead>
+                <tr>
+                  <th>Booking Date</th>
+                  <th>Customer</th>
+                  <th>Room Type</th>
+                  <th>Persons</th>
+                  <th>Phone</th>
+                  <th>Check-in</th>
+                  <th>Check-out</th>
+                </tr>
+              </thead>
+              <tbody>
                 {bookings.map((b, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{new Date().toLocaleDateString()}</TableCell>
-                    <TableCell>{b.guestName}</TableCell>
-                    <TableCell>{b.roomName}</TableCell>
-                    <TableCell>
-                      {b.adults} adults
+                  <tr key={index}>
+                    <td>{new Date().toLocaleDateString()}</td>
+                    <td>{b.guestName}</td>
+                    <td>{b.roomName}</td>
+                    <td>
+                      {b.adults} Adults
                       {b.children > 0 ? ` x ${b.children} ${b.children > 1 ? "Children" : "Child"}` : ""}
-                    </TableCell>
-                    <TableCell>
-                      <a href={`tel:${b.phone}`} className="phone-link">{b.phone}</a>
-                    </TableCell>
-                    <TableCell>{new Date(b.checkIn).toLocaleDateString()}</TableCell>
-                    <TableCell>{new Date(b.checkOut).toLocaleDateString()}</TableCell>
-                  </TableRow>
+                    </td>
+                    <td>
+                      <a href={`tel:${b.phone}`} className="phone-link">
+                        {b.phone}
+                      </a>
+                    </td>
+                    <td>{new Date(b.checkIn).toLocaleDateString()}</td>
+                    <td>{new Date(b.checkOut).toLocaleDateString()}</td>
+                  </tr>
                 ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+              </tbody>
+            </table>
+          </div>
         )}
-      </Box>
+      </div>
     </div>
   );
 };

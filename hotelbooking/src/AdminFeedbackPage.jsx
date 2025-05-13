@@ -1,23 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Typography,
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Rating,
-} from "@mui/material";
 import Sidebar from "./Sidebar";
 import './AdminFeedbackPage.css';
 
 const AdminFeedbackPage = () => {
   const [feedbackList, setFeedbackList] = useState([
     { name: "John", message: "Good", rating: 5 },
-    { name: "Rani", message: "Service Super", rating: 4 }
+    { name: "Rani", message: " Super", rating: 4 }
   ]);
 
   useEffect(() => {
@@ -37,41 +25,49 @@ const AdminFeedbackPage = () => {
     fetchFeedbacks();
   }, []);
 
+  const renderStars = (count) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= count) {
+        stars.push(<span key={i} style={{ color: "#ff9800" }}>★</span>);
+      } else {
+        stars.push(<span key={i} style={{ color: "#ccc" }}>★</span>);
+      }
+    }
+    return stars;
+  };
+
   return (
     <div className="admin-layout">
       <Sidebar />
-      <Box className="admin-content" p={4}>
-        <Typography variant="h4" gutterBottom style={{ color: "#ff9800" }}>
-          Feedbacks
-        </Typography>
+      <div className="admin-content" style={{ padding: "2rem" }}>
+        <h2 style={{ color: "#ff9800" }}>Feedbacks</h2>
 
         {feedbackList.length === 0 ? (
-          <Typography>No feedback submitted yet.</Typography>
+          <p>No feedback submitted yet.</p>
         ) : (
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead style={{ backgroundColor: "#ffe0b2" }}>
-                <TableRow>
-                  <TableCell><strong>Name</strong></TableCell>
-                  <TableCell><strong>Message</strong></TableCell>
-                  <TableCell><strong>Rating</strong></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+          <div className="feedback-table-container">
+            <table className="feedback-table">
+              <thead>
+                <tr style={{ backgroundColor: "#ffe0b2" }}>
+                  <th>Name</th>
+                  <th>Message</th>
+                  <th>Rating</th>
+                </tr>
+              </thead>
+              <tbody>
                 {feedbackList.map((feedback, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{feedback.name}</TableCell>
-                    <TableCell>{feedback.message}</TableCell>
-                    <TableCell>
-                      <Rating value={feedback.rating} readOnly />
-                    </TableCell>
-                  </TableRow>
+                  <tr key={index}>
+                    <td>{feedback.name}</td>
+                    <td>{feedback.message}</td>
+                    <td>{renderStars(feedback.rating)}</td>
+                  </tr>
                 ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+              </tbody>
+            </table>
+          </div>
         )}
-      </Box>
+      </div>
     </div>
   );
 };

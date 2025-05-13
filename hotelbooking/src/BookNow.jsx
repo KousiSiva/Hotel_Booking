@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "./BookNow.css";
 import Header from "./Header";
-import { TextField, Button, Typography, Box } from "@mui/material";
 
 const BookNow = () => {
   const { roomName } = useParams();
@@ -54,9 +53,7 @@ const BookNow = () => {
     };
 
     try {
-      // Simulate API call (Replace with real API call later)
       const response = await fakeBookingAPI(newBooking);
-
       if (response.success) {
         alert(`Booking confirmed for ${roomName}!`);
         navigate("/");
@@ -69,10 +66,8 @@ const BookNow = () => {
     }
   };
 
-  // Dummy API simulation (replace with real API call later)
   const fakeBookingAPI = async (bookingData) => {
-    console.log("Sending booking data to API...", bookingData);
-    await new Promise((resolve) => setTimeout(resolve, 500)); // simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
     return { success: true };
   };
 
@@ -80,72 +75,68 @@ const BookNow = () => {
     <>
       <Header />
       <div className="book-now-container">
-        <Typography variant="h4" className="title">Book Your Stay</Typography>
+        <div className="back-arrow" onClick={() => navigate(-1)}>
+          ←
+        </div>
+        <h2>Book Your Stay</h2>
 
         <div className="booking-form">
-          <TextField
-            label="Check-in Date"
+          <input
             type="date"
-            fullWidth
             value={checkIn}
             onChange={(e) => setCheckIn(e.target.value)}
-            InputLabelProps={{ shrink: true }}
+            placeholder="Check-in Date"
           />
-          <TextField
-            label="Check-out Date"
+          <input
             type="date"
-            fullWidth
             value={checkOut}
             onChange={(e) => setCheckOut(e.target.value)}
-            InputLabelProps={{ shrink: true }}
+            placeholder="Check-out Date"
           />
-          <TextField
-            label="Adults"
+          <input
             type="number"
-            fullWidth
             value={adults}
             onChange={(e) => setAdults(e.target.value)}
+            placeholder="Adults"
           />
-          <TextField
-            label="Children"
+          <input
             type="number"
-            fullWidth
             value={children}
             onChange={(e) => setChildren(e.target.value)}
+            placeholder="Children"
           />
         </div>
 
-        <Typography variant="h5" className="guest-title">Guest Details</Typography>
+        <h3 className="guest-title">Guest Details</h3>
         <div className="guest-info">
-          <TextField
-            label="Guest Name"
-            fullWidth
+          <input
+            type="text"
             value={guestName}
             onChange={(e) => setGuestName(e.target.value)}
+            placeholder="Guest Name"
           />
-          <TextField
-            label="Guest Age"
+          <input
             type="number"
-            fullWidth
             value={guestAge}
             onChange={(e) => setGuestAge(e.target.value)}
+            placeholder="Guest Age"
           />
-          <TextField
-            label="Phone Number"
-            fullWidth
+          <input
+            type="text"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            placeholder="Phone Number"
           />
         </div>
 
-        <Box mt={3}>
-          <Typography variant="h6">Price Per Night: RS.{pricePerNight}/night</Typography>
-          <Typography variant="h6">Total Price: RS.{calculatePrice()}</Typography>
-        </Box>
+        <div className="price-info">
+          <p>Price Per Night: RS.{pricePerNight}/night</p>
+          <p>Total Price: RS.{calculatePrice()}</p>
+        </div>
 
-        <Button className="confirm-btn" onClick={handleConfirmBooking}>
+        <button className="confirm-btn" onClick={handleConfirmBooking}>
           CONFIRM BOOKING
-        </Button>
+        </button>
       </div>
     </>
   );

@@ -5,7 +5,6 @@ import Home from "./Home";
 import About from "./About";
 import Service from "./Service";
 import Login from "./Login";
-import AdminLogin from "./AdminLogin";
 import Rooms from "./Rooms";
 import ContactPage from "./ContactPage";
 import BookNow from "./BookNow";
@@ -21,7 +20,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/adminlogin" element={<AdminLogin />} />
         <Route path="/services" element={<Service />} />
        <Route path="/rooms" element={<Rooms />} />
        <Route path="/contact" element={<ContactPage />} />

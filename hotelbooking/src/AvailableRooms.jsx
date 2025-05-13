@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-} from "@mui/material";
-import './AvailableRooms.css';
 import Sidebar from "./Sidebar";
+import "./AvailableRooms.css";
 
 import room1 from './room1.png';
 import room2 from './room2.png';
@@ -19,7 +12,6 @@ import room7 from './room7.png';
 import room8 from './room8.png';
 import room9 from './room9.png';
 import room10 from './room10.png';
-
 
 const dummyRoomsData = [
   {
@@ -82,16 +74,8 @@ const AvailableRooms = () => {
   const [selectedRoomIndex, setSelectedRoomIndex] = useState(null);
 
   const fetchRooms = async () => {
-    try {
-
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      const data = dummyRoomsData; 
-
-      setRooms(data);
-    } catch (error) {
-      console.error("Failed to fetch rooms", error);
-    }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    setRooms(dummyRoomsData);
   };
 
   useEffect(() => {
@@ -105,7 +89,7 @@ const AvailableRooms = () => {
     <div className="available-rooms-page">
       <Sidebar />
       <div className="available-rooms-container">
-        <h2>Available Rooms</h2>
+        <h2 className="room-title">Available Rooms</h2>
         <div className="room-grid">
           {rooms.map((room, idx) => (
             <div className="room-card" key={idx} onClick={() => openModal(idx)}>
@@ -116,11 +100,12 @@ const AvailableRooms = () => {
         </div>
 
         {selectedRoomIndex !== null && (
-          <Dialog open onClose={closeModal} maxWidth="md" fullWidth>
-            <DialogTitle className="dialog-title">
-              {rooms[selectedRoomIndex].name} - Sub Room Types
-            </DialogTitle>
-            <DialogContent>
+          <div className="modal-backdrop" onClick={closeModal}>
+            <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-header">
+                <h3>{rooms[selectedRoomIndex].name} - Sub Room Types</h3>
+                <button className="close-btn" onClick={closeModal}>×</button>
+              </div>
               <div className="subroom-grid">
                 {rooms[selectedRoomIndex].subRooms.map((sub, idx) => (
                   <div className="subroom-card" key={idx}>
@@ -132,11 +117,8 @@ const AvailableRooms = () => {
                   </div>
                 ))}
               </div>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={closeModal} color="secondary">Close</Button>
-            </DialogActions>
-          </Dialog>
+            </div>
+          </div>
         )}
       </div>
     </div>

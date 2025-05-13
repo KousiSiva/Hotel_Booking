@@ -1,16 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Checkbox
-} from "@mui/material";
 import Sidebar from "./Sidebar";
 import "./Checkouts.css";
 
@@ -21,26 +9,26 @@ const Checkouts = () => {
       roomName: "Executive Suite",
       checkIn: "2025-05-01",
       checkOut: "2025-05-05",
-      totalPrice: 20000
+      totalPrice: 20000,
     },
     {
       guestName: "Rani",
       roomName: "Luxury King Room",
       checkIn: "2025-05-03",
       checkOut: "2025-05-07",
-      totalPrice: 35000
-    }
+      totalPrice: 35000,
+    },
   ]);
 
   const [paymentStatus, setPaymentStatus] = useState({
     0: true,
-    1: false
+    1: false,
   });
 
   const handlePaymentChange = (index) => {
     const updatedStatus = {
       ...paymentStatus,
-      [index]: !paymentStatus[index]
+      [index]: !paymentStatus[index],
     };
     setPaymentStatus(updatedStatus);
   };
@@ -48,48 +36,46 @@ const Checkouts = () => {
   return (
     <div className="checkout-layout">
       <Sidebar />
-      <Box className="checkout-content" p={4}>
-        <Typography variant="h4" gutterBottom style={{ color: "#ff9800" }}>
-          Checkout List
-        </Typography>
+      <div className="checkout-content">
+        <h2 className="checkout-title">CHECKOUT LIST</h2>
 
         {bookings.length === 0 ? (
-          <Typography>No bookings found.</Typography>
+          <p>No bookings found.</p>
         ) : (
-          <TableContainer component={Paper} className="checkout-table">
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Customer</TableCell>
-                  <TableCell>Room</TableCell>
-                  <TableCell>Check-in</TableCell>
-                  <TableCell>Check-out</TableCell>
-                  <TableCell>Amount</TableCell>
-                  <TableCell>Payment Received</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+          <div className="checkout-table-wrapper">
+            <table className="checkout-table">
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Room</th>
+                  <th>Check-in</th>
+                  <th>Check-out</th>
+                  <th>Amount</th>
+                  <th>Payment Received</th>
+                </tr>
+              </thead>
+              <tbody>
                 {bookings.map((b, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{b.guestName}</TableCell>
-                    <TableCell>{b.roomName}</TableCell>
-                    <TableCell>{new Date(b.checkIn).toLocaleDateString()}</TableCell>
-                    <TableCell>{new Date(b.checkOut).toLocaleDateString()}</TableCell>
-                    <TableCell>RS.{b.totalPrice}</TableCell>
-                    <TableCell>
-                      <Checkbox
+                  <tr key={index}>
+                    <td>{b.guestName}</td>
+                    <td>{b.roomName}</td>
+                    <td>{new Date(b.checkIn).toLocaleDateString()}</td>
+                    <td>{new Date(b.checkOut).toLocaleDateString()}</td>
+                    <td>Rs. {b.totalPrice}</td>
+                    <td>
+                      <input
+                        type="checkbox"
                         checked={paymentStatus[index] || false}
                         onChange={() => handlePaymentChange(index)}
-                        color="success"
                       />
-                    </TableCell>
-                  </TableRow>
+                    </td>
+                  </tr>
                 ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+              </tbody>
+            </table>
+          </div>
         )}
-      </Box>
+      </div>
     </div>
   );
 };

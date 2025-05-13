@@ -1,17 +1,6 @@
-
 import React, { useState } from "react";
 import "./Rooms.css";
 import Header from "./Header";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  RadioGroup,
-  FormControlLabel,
-  Radio
-} from "@mui/material";
 import { Link } from "react-router-dom";
 
 import room1 from './room1.png';
@@ -123,67 +112,62 @@ const Rooms = () => {
       <Header />
       <div className="rooms-container">
         <h2>Explore Our <span className="highlight">ROOMS</span></h2>
-
-        <div className="rooms-list">
-          {rooms.map((room, index) => (
-            <div key={index} className="room-card">
-              <img src={room.image} alt={room.name} className="room-image" />
-              <div className="room-info">
-                <h3>{room.name}</h3>
-                <p className="price">{room.price}</p>
-                <p>{room.beds} | {room.baths} | {room.wifi}</p>
-                <button className="detail-btn" onClick={() => handleOpenModal(room)}>VIEW DETAILS</button>
+        <div className="rooms-scroll-wrapper">
+          <div className="rooms-list">
+            {rooms.map((room, index) => (
+              <div key={index} className="room-card">
+                <img src={room.image} alt={room.name} className="room-image" />
+                <div className="room-info">
+                  <h3>{room.name}</h3>
+                  <p className="price">{room.price}</p>
+                  <p>{room.beds} | {room.baths} | {room.wifi}</p>
+                  <button className="detail-btn" onClick={() => handleOpenModal(room)}>VIEW DETAILS</button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {selectedRoom && (
-        <Dialog open={true} onClose={handleCloseModal}>
-          <DialogTitle>{selectedRoom.name} Options</DialogTitle>
-          <DialogContent>
-            <RadioGroup
-              value={selectedSubRoom?.name || ""}
-              onChange={(e) =>
-                setSelectedSubRoom(
-                  selectedRoom.subRooms.find((sub) => sub.name === e.target.value)
-                )
-              }
-            >
-              {selectedRoom.subRooms?.map((subRoom, index) => (
-                <div key={index} className="sub-room-card">
+        <div className="custom-modal-overlay">
+          <div className="custom-modal">
+            <div className="modal-header">
+  <span className="back-arrow-symbol" onClick={handleCloseModal}>←</span>
+
+</div>
+            <h2 className="modal-title">{selectedRoom.name.toUpperCase()} OPTIONS</h2>
+            <div className="modal-content">
+              {selectedRoom.subRooms.map((subRoom, index) => (
+                <label key={index} className="sub-room-card">
+                  <input
+                    type="radio"
+                    name="subRoom"
+                    value={subRoom.name}
+                    checked={selectedSubRoom?.name === subRoom.name}
+                    onChange={() => setSelectedSubRoom(subRoom)}
+                  />
                   <img src={subRoom.image} alt={subRoom.name} className="room-image" />
-                  <div className="sub-room-details">
-                    <FormControlLabel
-                      value={subRoom.name}
-                      control={<Radio />}
-                      label={
-                        <div>
-                          <h3>{subRoom.name}</h3>
-                          <p className="price">{subRoom.price}</p>
-                          <p>{subRoom.description}</p>
-                        </div>
-                      }
-                    />
-                  </div>
-                </div>
+                  <h3>{subRoom.name}</h3>
+                  <p className="price">{subRoom.price}</p>
+                  <p>{subRoom.description}</p>
+                </label>
               ))}
-            </RadioGroup>
-          </DialogContent>
-          <DialogActions>
-            {selectedSubRoom && (
-              <Link
-                to={`/book/${encodeURIComponent(selectedSubRoom.name)}`}
-                state={{ price: selectedSubRoom.price }}
-                className="book-btn"
-              >
-                BOOK NOW
-              </Link>
-            )}
-            <Button onClick={handleCloseModal} color="primary">Close</Button>
-          </DialogActions>
-        </Dialog>
+            </div>
+            <div className="buttons">
+              {selectedSubRoom && (
+                <Link
+                  to={`/book/${encodeURIComponent(selectedSubRoom.name)}`}
+                  state={{ price: selectedSubRoom.price }}
+                  className="book-btn"
+                >
+                  BOOK NOW
+                </Link>
+              )}
+              <button className="detail-btn" onClick={handleCloseModal}>CLOSE</button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

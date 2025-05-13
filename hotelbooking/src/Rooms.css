@@ -4,30 +4,22 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background-color: white;
   overflow-x: hidden;
+  overflow-y: auto; 
 }
+
 
 .rooms-container {
   max-width: 1200px;
+ 
   width: 100%;
   margin: 100px auto;
   padding: 40px 20px;
   text-align: center;
-  height: 600px;
-  overflow-y: auto;
+  height: auto;
+  overflow-y: auto;      
+ 
 }
 
-.rooms-container::-webkit-scrollbar {
-  width: 10px;
-}
-
-.rooms-container::-webkit-scrollbar-thumb {
-  background: #f79d00;
-  border-radius: 5px;
-}
-
-.rooms-container::-webkit-scrollbar-track {
-  background: #ddd;
-}
 
 .rooms-container h2 {
   font-size: 32px;
@@ -37,36 +29,54 @@ body {
 .rooms-container .highlight {
   color: #f79d00;
 }
+.rooms-scroll-wrapper {
+  overflow-y: visible;
+  max-height: none;      
+  padding-bottom: 40px;  
+}
+
+
+.rooms-scroll-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.rooms-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #f79d00;
+  border-radius: 5px;
+}
+
+.rooms-scroll-wrapper::-webkit-scrollbar-track {
+  background: #ddd;
+}
 
 .rooms-list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 20px;
 }
 
 .room-card {
   background-color: #fff;
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .room-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .room-image {
   width: 100%;
-  height: 300px;
-  object-fit: cover; 
+  height: 100%;
+  object-fit: cover;
   border-radius: 8px;
 }
 
-
 .room-info {
-  padding-top: 15px;
+  padding-top: 10px;
 }
 
 .price {
@@ -74,19 +84,15 @@ body {
   color: #f79d00;
 }
 
-.buttons {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.detail-btn, .book-btn {
-  padding: 8px 14px;
+.detail-btn,
+.book-btn {
+  padding: 6px 12px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  margin: 10px 5px 0 5px;
+  font-size: 14px;
 }
 
 .detail-btn {
@@ -106,21 +112,113 @@ body {
 .book-btn:hover {
   background-color: #e68a00;
 }
-.modal-content {
+
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+
+.custom-modal {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 20px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+}
+
+.modal-title {
+  color: #f79d00;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-size: 20px;
+  text-align: left;
+}
+
+.modal-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  justify-content: center;
+  align-items: start;
+  
+  max-height: 60vh;
+  overflow-y: auto;
+
 }
 
 .sub-room-card {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
-.room-image {
+.sub-room-card h3 {
+  margin: 10px 0 5px;
+  font-size: 16px;
+}
+
+.sub-room-card p {
+  font-size: 13px;
+  color: #555;
+}
+
+.sub-room-card img {
   width: 100%;
-  border-radius: 8px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.modal-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-footer button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  background-color: #f79d00;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-footer button:hover {
+  background-color: #e68a00;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.back-arrow-symbol {
+  font-size: 20px;
+  font-weight: bold;
+  color: orange;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.back-arrow-symbol:hover {
+  background-color: #f2f2f2;
 }
