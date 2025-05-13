@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import "./AvailableRooms.css";
-
-import room1 from './room1.png';
-import room2 from './room2.png';
-import room3 from './room3.png';
-import room4 from './room4.png';
-import room5 from './room5.png';
-import room6 from './room6.png';
-import room7 from './room7.png';
-import room8 from './room8.png';
-import room9 from './room9.png';
-import room10 from './room10.png';
+import room1 from "./room1.png";
+import room2 from "./room2.png";
+import room3 from "./room3.png";
+import room4 from "./room4.png";
+import room5 from "./room5.png";
+import room6 from "./room6.png";
+import room7 from "./room7.png";
+import room8 from "./room8.png";
+import room9 from "./room9.png";
+import room10 from "./room10.png";
 
 const dummyRoomsData = [
   {
@@ -69,17 +68,60 @@ const dummyRoomsData = [
   },
 ];
 
+const dummyBookingData = [
+  {
+    guestName: "John",
+    roomName: "Junior Suite",
+    subRoomName: "Junior Deluxe",
+    checkIn: "2025-05-15",
+    checkOut: "2025-05-18",
+  },
+  {
+    guestName: "Rani",
+    roomName: "Executive Suite",
+    subRoomName: "Executive Deluxe",
+    checkIn: "2025-05-16",
+    checkOut: "2025-05-17",
+  },
+];
+
+const isTodayWithinRange = (checkIn, checkOut) => {
+  const today = new Date().setHours(0, 0, 0, 0);
+  return (
+    new Date(checkIn).setHours(0, 0, 0, 0) <= today &&
+    today <= new Date(checkOut).setHours(0, 0, 0, 0)
+  );
+};
+
 const AvailableRooms = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedRoomIndex, setSelectedRoomIndex] = useState(null);
 
-  const fetchRooms = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setRooms(dummyRoomsData);
-  };
-
   useEffect(() => {
-    fetchRooms();
+    const fetchData = async () => {
+      // Simulate API delay
+      await new Promise((res) => setTimeout(res, 300));
+
+      const updatedRooms = dummyRoomsData.map((room) => {
+        const updatedSubRooms = room.subRooms.map((sub) => {
+          const bookingsToday = dummyBookingData.filter(
+            (b) =>
+              b.roomName === room.name &&
+              b.subRoomName === sub.name &&
+              isTodayWithinRange(b.checkIn, b.checkOut)
+          );
+          return {
+            ...sub,
+            available: sub.available - bookingsToday.length,
+          };
+        });
+        return { ...room, subRooms: updatedSubRooms };
+      });
+
+      setRooms(updatedRooms);
+    };
+
+    fetchData();
   }, []);
 
   const openModal = (index) => setSelectedRoomIndex(index);
@@ -92,7 +134,11 @@ const AvailableRooms = () => {
         <h2 className="room-title">Available Rooms</h2>
         <div className="room-grid">
           {rooms.map((room, idx) => (
-            <div className="room-card" key={idx} onClick={() => openModal(idx)}>
+            <div
+              className="room-card"
+              key={idx}
+              onClick={() => openModal(idx)}
+            >
               <img src={room.image} alt={room.name} />
               <h3>{room.name}</h3>
             </div>
@@ -104,7 +150,9 @@ const AvailableRooms = () => {
             <div className="modal-box" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
                 <h3>{rooms[selectedRoomIndex].name} - Sub Room Types</h3>
-                <button className="close-btn" onClick={closeModal}>×</button>
+                <button className="close-btn" onClick={closeModal}>
+                  ×
+                </button>
               </div>
               <div className="subroom-grid">
                 {rooms[selectedRoomIndex].subRooms.map((sub, idx) => (
@@ -112,7 +160,10 @@ const AvailableRooms = () => {
                     <img src={sub.image} alt={sub.name} />
                     <div className="subroom-info">
                       <h4>{sub.name}</h4>
-                      <p>Available: {sub.available}</p>
+                      <p>
+                        Available:{" "}
+                        <strong>{sub.available >= 0 ? sub.available : 0}</strong>
+                      </p>
                     </div>
                   </div>
                 ))}

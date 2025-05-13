@@ -13,8 +13,8 @@ const BookingDetails = () => {
         adults: 2,
         children: 1,
         phone: "9876543210",
-        checkIn: "2025-05-10",
-        checkOut: "2025-05-14",
+        checkIn: "2025-05-15",
+        checkOut: "2025-05-18",
       },
       {
         guestName: "Rani",
@@ -22,8 +22,8 @@ const BookingDetails = () => {
         adults: 3,
         children: 0,
         phone: "9123456789",
-        checkIn: "2025-05-12",
-        checkOut: "2025-05-16",
+        checkIn: "2025-05-16",
+        checkOut: "2025-05-17",
       },
     ];
     setBookings(defaultBookings);
