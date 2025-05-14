@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Rooms.css";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 import room1 from './room1.png';
 import room2 from './room2.png';
@@ -97,6 +98,15 @@ const rooms = [
 const Rooms = () => {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [selectedSubRoom, setSelectedSubRoom] = useState(null);
+const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      alert("Please log in to view rooms");
+      navigate("/login");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleOpenModal = (room) => {
     setSelectedRoom(room);

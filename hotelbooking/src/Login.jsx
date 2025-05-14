@@ -3,11 +3,13 @@ import { signInWithGoogle } from "./Firebase";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import Header from "./Header";
+import { useAuth } from "./AuthContext"; 
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth(); 
 
   useEffect(() => {
     document.body.className = "login-page";
@@ -19,6 +21,7 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       await signInWithGoogle();
+      setIsAuthenticated(true);
       navigate("/rooms");
     } catch (error) {
       console.error("Google login failed", error);
@@ -27,10 +30,10 @@ const Login = () => {
 
   const handleEmailLogin = () => {
     if (email === "kousi@gmail.com" && password === "Kousima123") {
-      
+      setIsAuthenticated(true);
       navigate("/rooms");
     } else if (email === "admin@gmail.com" && password === "admin123") {
-     
+      setIsAuthenticated(true);
       navigate("/admin");
     } else {
       alert("Invalid credentials");
